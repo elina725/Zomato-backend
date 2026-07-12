@@ -26,6 +26,7 @@ async function GetAllCategories(req, res) {
 
     res.json(categories);
   } catch (error) {
+    console.error(error);
     res.status(500).json({ message: error.message });
   }
 }
