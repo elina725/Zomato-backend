@@ -21,18 +21,10 @@ async function seedDefaultCategories() {
 async function GetAllCategories(req, res) {
   try {
     await seedDefaultCategories();
-    const categories = await Category.findAll({
-      include: [{ model: Product, as: 'products', attributes: ['id'] }],
-      order: [['name', 'ASC']],
-    });
 
-    res.json(categories.map((category) => ({
-      id: category.id,
-      name: category.name,
-      image: category.image,
-      active: category.active,
-      items: category.products.length,
-    })));
+    const categories = await Category.findAll();
+
+    res.json(categories);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
