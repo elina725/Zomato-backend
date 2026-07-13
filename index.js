@@ -40,7 +40,10 @@ async function startServer() {
     await db.authenticate();
     console.log('Database connected successfully');
 
-    await db.sync({ alter: true });
+    // `alter: true` changes the database schema on every startup. On Railway it
+    // can block on schema locks long enough for the service to be marked unhealthy.
+    // Plain sync still creates missing tables without altering existing ones.
+    await db.sync();
     console.log('Database synchronized');
 
     app.listen(PORT, () => {
