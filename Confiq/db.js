@@ -1,6 +1,8 @@
 const Sequelize = require("sequelize");
 
-const db = new Sequelize(process.env.MYSQL_URL, {
+const databaseUrl = process.env.MYSQL_URL || process.env.MySQL_URL;
+
+const db = new Sequelize(databaseUrl, {
   dialect: "mysql",
   logging: false,
 });
